@@ -328,7 +328,7 @@ async function logout() {
   showLoading("Fazendo logout...")
 
   try {
-    await fetch(`${API_BASE}/auth/logout`, {
+    await fetch(`${API_BASE}/auth/logout/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${TOKEN}`,
@@ -385,26 +385,29 @@ function showSection(sectionName) {
 
 // Products Functions
 async function loadProducts() {
-  showLoading("Carregando produtos...")
+  showLoading("Carregando produtos...");
 
   try {
-    const response = await fetch(`${API_BASE}/produtos`, {
+    const response = await fetch(`${API_BASE}/produtos/`, { // ✅ trailing slash
+      method: "GET", // ✅ método fora dos headers
       headers: {
         Authorization: `Bearer ${TOKEN}`,
-        userip: await getIpAddress(), // Passa o IP do usuário
+        userip: await getIpAddress(), // IP do usuário
+        "Content-Type": "application/json"
       },
-    })
+    });
 
     if (response.ok) {
-      const produtos = await response.json()
-      displayProducts(produtos)
+      const produtos = await response.json();
+      displayProducts(produtos);
     } else {
-      throw new Error("Erro ao carregar produtos")
+      const text = await response.text(); // captura erro detalhado
+      throw new Error(`Erro ao carregar produtos: ${text}`);
     }
   } catch (error) {
-    showToast("Erro ao buscar produtos: " + error.message, "error")
+    showToast("Erro ao buscar produtos: " + error.message, "error");
   } finally {
-    hideLoading()
+    hideLoading();
   }
 }
 
@@ -477,7 +480,7 @@ async function handleAddProduct(event) {
   showLoading("Adicionando produto...")
 
   try {
-    const response = await fetch(`${API_BASE}/produtos`, {
+    const response = await fetch(`${API_BASE}/produtos/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -522,7 +525,7 @@ async function searchProducts() {
   showLoading("Pesquisando...")
 
   try {
-    const response = await fetch(`${API_BASE}/produtos/search`, {
+    const response = await fetch(`${API_BASE}/produtos/search/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -610,7 +613,7 @@ async function editProduct(id) {
   showLoading("Carregando produto...")
 
   try {
-    const response = await fetch(`${API_BASE}/produtos`, {
+    const response = await fetch(`${API_BASE}/produtos/`, {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
         userip: await getIpAddress(), // Passa o IP do usuário
