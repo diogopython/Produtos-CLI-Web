@@ -662,13 +662,14 @@ body {
   color: var(--color-app-footer); /* cor do texto */
   font-size: 0.9rem;    /* tamanho da fonte */
   font-weight: 500;     /* peso da fonte */
+  margin-top: auto;     /* empurra o footer para o final da página */
 }
 
 .app-footer p {
+  margin-top: auto;     /* empurra o footer para o final da página */
   color: var(--color-app-footer);
   font-size: 0.9rem;
   font-weight: 500;
-  margin: 0;
   letter-spacing: 0.025em;
 }
 
@@ -806,12 +807,14 @@ body {
 
   /* Mobile footer styling */
   .app-footer {
+    margin-top: auto;     /* empurra o footer para o final da página */
     margin: 16px 12px;
     padding: 16px;
   }
 
   .app-footer p {
     font-size: 0.85rem;
+    margin-top: auto;     /* empurra o footer para o final da página */
   }
 }
 
@@ -900,6 +903,7 @@ body {
 
   /* Small screen footer styling */
   .app-footer {
+    margin-top: auto;     /* empurra o footer para o final da página */
     margin: 12px 8px;
     padding: 14px;
   }
@@ -921,4 +925,57 @@ body {
 .no-results p {
   font-size: 1.1rem;
   margin: 0;
+}
+
+main {
+  flex: 1;
+}
+
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 10px 0;
+  color: var(--color-app-footer);
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  /*background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2); */
+}
+
+/* Enhanced beta warning with modern styling */
+.manutencao-warning {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  padding: 24px 40px;       /* mais espaço interno */
+  border-radius: 16px;
+  border: 2px solid #f59e0b;
+  font-size: 1.2rem;        /* fonte maior */
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2);
+
+  text-align: center;
+  max-width: 650px;         /* maior largura */
+  width: 90%;               /* ocupa boa parte da tela em dispositivos pequenos */
+  z-index: 9999;
+}
+
+[data-theme="dark"] .manutencao-warning {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.2), rgba(253, 230, 138, 0.2));
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.manutencao-warning i {
+  margin-right: 8px;
 }
