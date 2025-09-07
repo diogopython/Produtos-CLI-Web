@@ -35,6 +35,19 @@ function updateThemeIcon(theme) {
   }
 }
 
+function manutencao(MSG) {
+  appContainer.remove();
+  document.getElementById("modals").remove();
+
+  authContainer.innerHTML = "";
+  authContainer.innerHTML = `
+    <div class="manutencao-warning">
+      <i class="fas fa-exclamation-triangle auth-container"></i>
+        ${MSG}
+    </div>
+  `;
+}
+
 // Initialize App
 document.addEventListener("DOMContentLoaded", async () => {
   initializeTheme();
@@ -44,8 +57,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     return
   }
 
-  if (!(await checkServerConnection())) {
-    showToast("Erro: Servidor indisponível. Tente novamente mais tarde.", "error")
+  const valid = await checkServerConnection();
+  if (!valid[0]) {
+    manutencao(valid[1]);
     return
   }
 
@@ -57,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 
 // Utility Functions
-async function getIpAddress() {
+const getIpAddress = async () => {
   const url = 'https://api.ipify.org?format=json';
 
   try {
@@ -104,9 +118,9 @@ async function checkServerConnection() {
   try {
     const response = await fetch(`${API_BASE}/valid`, { timeout: 10000 })
     const data = await response.json()
-    return data.valid
+    return [data.valid, data.msg];
   } catch {
-    return false
+    return [false]
   }
 }
 
@@ -571,6 +585,7 @@ function displaySearchResults(produtos) {
             <th>Nome</th>
             <th>Preço</th>
             <th>Quantidade</th>
+            <th>Total</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -587,7 +602,7 @@ function displaySearchResults(produtos) {
         <td>R$ ${Number.parseFloat(produto.preco * produto.quantidade).toFixed(2)}</td>
         <td>
           <div class="action-buttons">
-            <button class="btn btn-warning btn-sm" onclick="editProduct(${produto.id})">
+            <button class="btn btn-info btn-sm" onclick="editProduct(${produto.id})">
               <i class="fas fa-edit"></i> Editar
             </button>
             <button class="btn btn-danger btn-sm" onclick="deleteProduct(${produto.id})">
