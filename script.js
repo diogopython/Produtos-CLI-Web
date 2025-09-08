@@ -253,9 +253,9 @@ async function handleRegister(event) {
       // Auto login after registration
       await performLogin(email, senha, false)
     } else {
-      const errorData = await response.text()
+      const errorData = await response.erro
       throw new Error(errorData)
-    }
+    } 
   } catch (error) {
     hideLoading()
     showToast("Erro ao registrar: " + error.message, "error")
@@ -301,7 +301,7 @@ async function performLogin(email, senha, IsCred) {
 
       showApp()
     } else {
-      throw new Error("Credenciais inválidas")
+      throw new Error(response.erro)
     }
   } catch (error) {
     hideLoading()
@@ -415,7 +415,7 @@ async function loadProducts() {
       const produtos = await response.json();
       displayProducts(produtos);
     } else {
-      const text = await response.text(); // captura erro detalhado
+      const text = await response.erro; // captura erro detalhado
       throw new Error(`Erro ao carregar produtos: ${text}`);
     }
   } catch (error) {
