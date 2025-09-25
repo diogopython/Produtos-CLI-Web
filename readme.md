@@ -1,6 +1,6 @@
 # 🌐 Produtos-CLI-Web
 
-Este repositório contém a **parte web** do projeto [Produtos-CLI](https://github.com/diogopython/Servidor-produtosAPI-TS), oferecendo uma interface simples e prática para gerenciamento de produtos.
+Este repositório contém a **parte web** do projeto [Servidor-produtosAPI-TS](https://github.com/diogopython/Servidor-produtosAPI-TS), oferecendo uma interface simples e prática para gerenciamento de produtos.
 
 ---
 
